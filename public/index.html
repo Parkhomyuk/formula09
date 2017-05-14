@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Formula</title>
+    <!-- build:css css/main.min.css -->
+    <link type="text/css" rel="stylesheet" href="css/main.css"/>
+    <!-- endbuild -->
+    <!-- build:css css/bootstrap.css -->
+    <link type="text/css" rel="stylesheet" href=" css/bootstrap.min.css">
+    <!-- endbuild -->
+    <!-- build:css css/awesome.css -->
+    <link type="text/css" rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <!-- endbuild -->
+</head>
+<body>
+
+<aside id="sidebar" class="column-left" ng-controller="firstCtrl as first">
+
+    <header>
+
+    </header>
+    <nav id="main_navside">
+        <div>
+            <div class="side" ng-click="first.menu1('home')">
+                <a href="#/"><span class="glyphicon glyphicon-home" aria-hidden="true" style="margin-right: 1vw"></span></a>
+                <a class="side_menu">Home</a>
+            </div>
+            <div class="side" ng-click="first.menu1('members')">
+                <a >
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="margin-right: 1vw" ></span>
+                </a>
+                <a class="side_menu" routerLink="/members" *ngIf="visible=='visible'" >Members</a>
+            </div>
+            <div class="side">
+                <a href="#/calendar"> <span class="glyphicon glyphicon-calendar" aria-hidden="true" style="margin-right: 1vw"  ></span></a>
+                <a class="side_menu" href="#" *ngIf="visible=='visible'" >Calendar</a>
+            </div>
+            <div class="side">
+                <a href="#"><span class="glyphicon glyphicon-transfer" aria-hidden="true" style="margin-right: 1vw"  ></span></a>
+                <a class="side_menu" href="#" *ngIf="visible=='visible'" >Feed</a>
+            </div>
+            <div class="side" ng-click="first.menu1('resources')">
+                <a  ><span class="glyphicon glyphicon-list" aria-hidden="true" style="margin-right: 1vw"></span></a>
+                <a class="side_menu"  routerLink="/resources" *ngIf="visible=='visible'"  >Resources</a>
+            </div>
+            <div class="side">
+                <a ng-click="first.menu1()"><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true" style="margin-right: 1vw"></span>
+                    <a class="side_menu" src="template/calendar.html" >Diagram</a></a>
+            </div>
+        </div>
+    </nav>
+</aside>
+
+
+<div class="black">
+    <!--======Nav BAr===============================================-->
+    <nav    class="navbar navbar-light navbar-fixed-top "  >
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Formula</a>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+                <ul class="nav navbar-nav">
+                    <li class="active tog">
+
+                        <a (click)="toggleSideBar()">
+
+                            <i class="fa fa-toggle-on"  ></i>
+
+                            <i class="fa fa-toggle-off"   ></i>
+                            <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" >
+                    <li><a href="#"> <span class="glyphicon glyphicon-bell" aria-hidden="true"> </span><br><span>5</span></a></li>
+                    <li><a href="#"> <span class="glyphicon glyphicon-envelope" aria-hidden="true"> </span><br><span>5</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img src="./img/Nasta.png" class="imag_nav"> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                            <li class="dropdown-item"><i class="dropdown-arr"></i></li>
+                            <li class="dropdown-item"><a href><i class="fa fa-user"></i>Profile</a></li>
+                            <li class="dropdown-item"><a href><i class="fa fa-cog"></i>Settings</a></li>
+                            <li class="dropdown-item"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="card_table" ng-controller="firstCtrl as first">
+    <div
+
+     ng-include src="first.templates"
+     ng-animate="{enter: 'example-enter', leave: 'example-leave'}">
+    </div>
+</div>
+
+<!-- build:js js/vendor.min.js -->
+<script src="js/angular.min.js"/>
+
+<script src="js/jquery.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/main.min.js -->
+<script src="js/app.js"></script>
+<script src="js/controllers/firstCtrl.js"></script>
+<script src="js/controllers/tableCtrl.js"></script>
+<script src="js/controllers/sideBarCtrl.js"></script>
+
+<!-- endbuild -->
+
+</body>
+</html>

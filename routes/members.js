@@ -73,6 +73,34 @@ router.get('/members', function(req, res) {
         });
     });
 });
+/* GET member listing. by page number*/
+router.get('/members/page:param', function(req, res) {
+    console.log(req.params);
+    var r=req.params.param
+    pool.getConnection(function(err, connection) {
+        if (err) {
+            console.error("An error occurred: " + err);
+        }
+        /*connection.query('select * from user LIMIT 0,'+req.params.param, function(err, rows) {*/
+        connection.query(r, function(err, rows) {
+            if (err) {
+                throw err;
+            } else {
+                res.writeHead(200, {
+                    "Content-Type": "application/json"
+                });
+                var result = {
+                    success: true,
+                    rows: rows.length,
+                }
+                res.write(JSON.stringify(rows));
+
+                res.end();
+            }
+            connection.release();
+        });
+    });
+});
 
 /*router.get('/members/id/:id', function(req, res) {
     console.log(req.params);
@@ -112,7 +140,7 @@ router.get('/members/count', function(req, res) {
         if (err) {
             console.error("An error occurred: " + err);
         }
-        connection.query('select * from user ', function(err, rows) {
+        connection.query('SELECT COUNT(*) FROM user ', function(err, rows) {
             if (err) {
                 throw err;
             } else {
@@ -262,12 +290,12 @@ router.get('/members/search/:term', function(req, res) {
 
 
   /*  var r=req.params.term+'%\' LIMIT 0,100';*/
-    var re=req.params.term.replace(/F/g, '%\'');
-    var f=re.replace(/0/g,' ');
+    var re=req.params.term.replace(/xoxxooxl/g, '%\'');
+   /* var f=re.replace(/0/g,' ');
     var t=f.slice(0,-3);
-    var r="select * from user where "+t+" LIMIT 0,100";
+    var r="select * from user where "+t+" LIMIT 0,100";*/
 
-   console.log(r+' What');
+   console.log(re+' What');
 
 
 
@@ -279,8 +307,8 @@ router.get('/members/search/:term', function(req, res) {
 
         /*connection.query('select * from members where fullname=?', [req.params.term], function(err, rows) {*/
         /*connection.query('select * from user where first_name like ?', [req.params.term+'%'], function(err, rows) {*/
-        connection.query(r, function(err, rows) {
-            console.log(r+' query');
+        connection.query(re, function(err, rows) {
+            console.log(re+' query');
             if (err) {
                 throw err;
             } else {

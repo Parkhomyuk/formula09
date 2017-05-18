@@ -76,9 +76,9 @@
                     <th><input #searchBox   class="searchin"  (keyup)="search(searchBox.value)" [(ngModel)]="inputRole" placeholder=" role"/></th>
                     <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputUser_name"   placeholder=" "/></th>
                     <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputPassword"   placeholder=" password"/></th>
-                    <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)"  [(ngModel)]="inputFirst_name"   placeholder=" first name"/></th>
-                    <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputLast_name"   placeholder=" last name"/></th>
-                    <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputMiddle_name"   placeholder="middle name"/></th>
+                    <th><input #searchBox  class="searchin" ng-keyup="search()"  ng-model="inputFirst_name"   placeholder=" first name"/></th>
+                    <th><input #searchBox  class="searchin" ng-keyup="search()"  ng-model="inputLast_name"    placeholder=" last name"/></th>
+                    <th><input #searchBox  class="searchin" ng-keyup="search()"  ng-model="inputMiddle_name"  placeholder="middle name"/></th>
                     <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputBirthday"   placeholder=" birthday"/></th>
                     <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputEmail"   placeholder=" e:mail"/></th>
                     <th><input #searchBox  class="searchin" (keyup)="search(searchBox.value)" [(ngModel)]="inputNew_Email"   placeholder=" new e:mail"/></th>
@@ -150,24 +150,38 @@
                 </tbody>
             </table>
 
-            <h1>{{pagess}}</h1>
 
-            <div class="pagers">
 
-                <div class="btn-toolbar" role="toolbar" style="margin: 0;">
-                    <div class="btn-group">
-                        <label style="margin-top:10px">Page {{currentIndex}}/{{pageNumber}}</label>
+
+            <div class="pagers "  >
+
+                <div class="row">
+
+                    <div class="btn-group col-md-6">
+                        <label  >Pages {{numberPages}}/ Current page {{pageNumberView}} </label>
+
                     </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-md-6 control-label">number of rows on page</label>
+                        <div class="col-md-6">
+                            <select class="form-control select" data-style="btn-success" ng-model="numberRows" >
+                                <option ng-repeat="count in chooseCountNumber">{{count}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
                     <div class="btn-group pull-right">
                         <ul class="pagination" >
-                            <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
-                            <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
-                                <a (click)="setPage(page)" href="#" >{{page}}</a>
+                            <li  ><a   ng-click="pageLeft()"    href="#">Prev</a></li>
+                            <li ng-repeat="page in arrayCountPage"  >
+                                <a ng-click="setPage(page)"    href="#" >{{page}}</a>
                             </li>
-                            <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()" href="#">Next</a></li>
+                            <li  ><a  ng-click="pageRight()"   href="#">Next</a></li>
                         </ul>
                     </div>
-                </div>
+
 
             </div>
         </div>

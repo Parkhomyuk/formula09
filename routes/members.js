@@ -162,14 +162,18 @@ router.get('/members/count', function(req, res) {
 router.get('/members/:param', function(req, res) {
     console.log(req.params);
     console.log([req.params.param]);
-    var r='select * from user ORDER BY '+req.params.param +' DESC LIMIT 0,100'
+    var r='select * from user ORDER BY '+req.params.param +' DESC LIMIT 0,100';
+
+    var q=req.params.param;
+    var query=q.replace(/xoxxooxl/g, '%\'');
+    console.log(query+' query');
     pool.getConnection(function(err, connection) {
         if (err) {
             console.error("An error occurred: " + err);
         }
         console.log([req.params.param]+" this is par "+(typeof [req.params.par]==='string'));
        /* connection.query('select * from user ORDER BY ? DESC LIMIT 0,100', ['id'], function(err, rows) {*/
-        connection.query(r,  function(err, rows) {
+        connection.query(query,  function(err, rows) {
             if (err) {
                 throw err;
             } else {
@@ -191,14 +195,18 @@ router.get('/members/:param', function(req, res) {
 router.get('/members/up/:paramup', function(req, res) {
     console.log(req.params);
     console.log([req.params.paramup]+' UP');
-    var r='select * from user ORDER BY '+req.params.paramup +'   LIMIT 0,100'
+    var r='select * from user ORDER BY '+req.params.paramup +'   LIMIT 0,100';
+    var rr='select * from user where first_name like '+"'"+'V%'+"'"+'  ORDER BY last_name DESC LIMIT 0, 100 ';
+    var q=req.params.paramup;
+    var query=q.replace(/xoxxooxl/g, '%\'');
+
     pool.getConnection(function(err, connection) {
         if (err) {
             console.error("An error occurred: " + err);
         }
 
-        /* connection.query('select * from user ORDER BY ? DESC LIMIT 0,100', ['id'], function(err, rows) {*/
-        connection.query(r,  function(err, rows) {
+
+        connection.query(query,  function(err, rows) {
             if (err) {
                 throw err;
             } else {
@@ -253,38 +261,6 @@ router.post('/members/add', function(req, res) {
 });
 
 
-/*
-router.get('/members/:item', function(req, res) {
-    console.log(req.params);
-    console.log([req.params.item]+' search');
-    var r='select * from user where first_name like '+[req.params.item+'%']+' LIMIT 0,100';
-
-    pool.getConnection(function(err, connection) {
-        if (err) {
-            console.error("An error occurred: " + err);
-        }
-
-        /!* connection.query('select * from user ORDER BY ? DESC LIMIT 0,100', ['id'], function(err, rows) {*!/
-        connection.query('select * from user where first_name like ?  LIMIT 0,100', [req.params.item+'%'], function(err, rows) {
-            if (err) {
-                throw err;
-            } else {
-                res.writeHead(200, {
-                    "Content-Type": "application/json"
-                });
-                var result = {
-                    success: true,
-                    rows: rows.length,
-                }
-                res.write(JSON.stringify(rows));
-
-                res.end();
-            }
-            connection.release();
-        });
-    });
-});
-*/
 
 router.get('/members/search/:term', function(req, res) {
 
